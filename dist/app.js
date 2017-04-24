@@ -50,7 +50,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, Word.run(function (context) { return __awaiter(_this, void 0, void 0, function () {
-                            var foo;
                             return __generator(this, function (_a) {
                                 switch (_a.label) {
                                     case 0: 
@@ -63,16 +62,18 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                                          * Insert your Word code here
                                          */
                                         _a.sent();
-                                        foo = Office.context.document.settings.get('hello');
-                                        if (!foo) {
-                                            Office.context.document.settings.set('hello', 'world');
-                                            Office.context.document.settings.saveAsync(function (asyncResult) {
-                                                $('#content').append('Settings saved with status: ' + asyncResult.status);
-                                            });
-                                        }
-                                        else {
-                                            $('#content').append('Value found: ' + foo);
-                                        }
+                                        Office.context.document.settings.refreshAsync(function () {
+                                            var foo = Office.context.document.settings.get('hello');
+                                            if (!foo) {
+                                                Office.context.document.settings.set('hello', 'world');
+                                                Office.context.document.settings.saveAsync(function (asyncResult) {
+                                                    $('#content').append('Settings saved with status: ' + asyncResult.status);
+                                                });
+                                            }
+                                            else {
+                                                $('#content').append('Value found: ' + foo);
+                                            }
+                                        });
                                         return [2 /*return*/];
                                 }
                             });

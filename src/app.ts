@@ -19,16 +19,18 @@
        */
       await context.sync();
 
-      var foo = Office.context.document.settings.get('hello');
-      if (!foo) {
-        Office.context.document.settings.set('hello', 'world');
-        Office.context.document.settings.saveAsync(function (asyncResult) {
-          $('#content').append('Settings saved with status: ' + asyncResult.status);
-        });
-      }
-      else {
-        $('#content').append('Value found: ' + foo);
-      }
+      Office.context.document.settings.refreshAsync(function () {
+        var foo = Office.context.document.settings.get('hello');
+        if (!foo) {
+          Office.context.document.settings.set('hello', 'world');
+          Office.context.document.settings.saveAsync(function (asyncResult) {
+            $('#content').append('Settings saved with status: ' + asyncResult.status);
+          });
+        }
+        else {
+          $('#content').append('Value found: ' + foo);
+        }
+      });
 
     });
     
